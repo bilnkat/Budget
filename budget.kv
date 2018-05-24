@@ -1,0 +1,52 @@
+#: import main budget
+#: import ListAdapter kivy.adapters.listadapter.ListAdapter
+#: import ListItemButton kivy.uix.listview.ListItemButton
+
+<Budget>:
+    orientation: 'vertical'
+    spacing: 5
+    padding: 5
+    expenseInput: expenseItem
+    expenseList: expenseView
+
+    GridLayout:
+        cols: 2
+        rows: 2
+        size_hint: 1, .2
+        spacing: 5
+
+        Label:
+            text: 'Balance: '
+            font_size: 50
+
+        Label:
+            text: root.calcBalance()
+            font_size: 50
+
+    TextInput:
+        text: 'Add an expense here...'
+        size_hint: 1, .2
+        multiline: False
+        id: expenseItem
+
+    GridLayout:
+        cols:2
+        size_hint: 1, .2
+        spacing: 5
+
+        Button:
+            text: 'Remove'
+            font_size: 50
+            background_color: .9, 0, 0, 1
+            on_press: root.removeExpense()
+
+        Button:
+            text: 'Add'
+            font_size: 50
+            background_color: 0, .9, 0, 1
+            on_press: root.addExpense()
+
+    ListView:
+        id: expenseView
+        adapter:
+            ListAdapter(data=[], cls=main.ExpenseListButton)
