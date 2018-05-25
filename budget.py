@@ -10,6 +10,9 @@ from kivy.uix.listview import ListItemButton
 from kivy.uix.gridlayout import GridLayout
 from kivy.properties import ObjectProperty
 from kivy.properties import StringProperty
+import calendar
+import datetime
+import time
 
 class ExpenseListButton(ListItemButton):
     pass
@@ -18,20 +21,25 @@ class ExpenseListButton(ListItemButton):
 class Budget(BoxLayout):
 
     allowance = 100
-    expenseTotal = 0
     expenseInput = ObjectProperty()
     expenseList = ObjectProperty()
-    budgetOutput = StringProperty()
+    currentBudget = StringProperty()
 
-    def __init__(self):
-        BoxLayout.__init__(self)
-        self.budgetOutput = str(220)
+    def running_all_the_time(self):
+        while True:
+            today = datetime.date.today()
+            if today.day == calendar.month_range(today.year, today.month):
+                self.addAllowance()
+            time.sleep(3600)  # Wait for an hour
+
+    def addAllowance(self):
+        self.currentBudget = str(int(self.currentBudget) + self.allowance)
 
     def calcBalance(self):
         expense = 0
         for i in self.expenseList.adapter.data:
             expense += int(i)
-        self.budgetOutput = str(self.allowance - expense)
+        self.currentBudget = str(self.allowance - expense)
 
     def addExpense(self):
         # Get expense from expenseInput
