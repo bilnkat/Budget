@@ -20,17 +20,21 @@ class ExpenseListButton(ListItemButton):
 
 class Budget(BoxLayout):
 
+    allowanceDay = 0
     allowance = 100
     expenseInput = ObjectProperty()
     expenseList = ObjectProperty()
     currentBudget = StringProperty()
 
+    def setAllowanceDay(self, day):
+        self.allowanceDay = day
+
     def running_all_the_time(self):
         while True:
             today = datetime.date.today()
-            if today.day == calendar.month_range(today.year, today.month):
+            if today.day == 25:
                 self.addAllowance()
-            time.sleep(3600)  # Wait for an hour
+            time.sleep(86400)  # Wait for an hour
 
     def addAllowance(self):
         self.currentBudget = str(int(self.currentBudget) + self.allowance)
