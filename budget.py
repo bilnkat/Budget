@@ -10,24 +10,28 @@ from kivy.uix.listview import ListItemButton
 from kivy.uix.gridlayout import GridLayout
 from kivy.properties import ObjectProperty
 from kivy.properties import StringProperty
-import calendar
 import datetime
 import time
+from kivy.uix.popup import Popup
+
+class CustomPopup(Popup):
+    pass
 
 class ExpenseListButton(ListItemButton):
     pass
 
-
 class Budget(BoxLayout):
 
-    allowanceDay = 0
-    allowance = 100
+    allowanceDay = ObjectProperty()
+    allowance = ObjectProperty()
     expenseInput = ObjectProperty()
     expenseList = ObjectProperty()
     currentBudget = StringProperty()
 
-    def setAllowanceDay(self, day):
-        self.allowanceDay = day
+    def openPopup(self):
+        the_popup = CustomPopup()
+        the_popup.open()
+
 
     def running_all_the_time(self):
         while True:

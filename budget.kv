@@ -2,12 +2,18 @@
 #: import ListAdapter kivy.adapters.listadapter.ListAdapter
 #: import ListItemButton kivy.uix.listview.ListItemButton
 
+
 <Budget>:
     orientation: 'vertical'
     spacing: 5
     padding: 5
     expenseInput: expenseItem
     expenseList: expenseView
+
+    Button:
+        text: 'Settings'
+        size_hint: .1, .1
+        on_press: root.openPopup()
 
     GridLayout:
         cols: 2
@@ -16,7 +22,7 @@
         spacing: 5
 
         Label:
-            text: 'Balance: '
+            text: 'Balance:'
             font_size: 50
 
         Label:
@@ -24,7 +30,7 @@
             font_size: 50
 
     TextInput:
-        text: 'Add an expense here...'
+        text: '4'
         size_hint: 1, .2
         multiline: False
         id: expenseItem
@@ -50,3 +56,46 @@
         id: expenseView
         adapter:
             ListAdapter(data=[], cls=main.ExpenseListButton)
+
+
+<CustomPopup>:
+    size_hint: .5, .5
+    auto_dismiss: False
+    title: 'Settings'
+    allowance: allowanceValue
+    allowanceDay: allowanceDayValue
+
+    BoxLayout:
+        orientation: 'vertical'
+
+        GridLayout:
+            cols: 2
+
+            Label:
+                text: 'Allowance:'
+
+            TextInput:
+                text: '200'
+                id: allowanceValue
+                multiline: False
+
+        GridLayout:
+            cols: 3
+
+            Label:
+                text: 'Receive every '
+
+            TextInput:
+                text: '15'
+                id: allowanceDayValue
+                multiline: False
+
+            Label:
+                text: 'day of the month'
+
+
+        Button:
+            text: 'Close'
+            on_press:
+                Budget().addAllowance()
+                root.dismiss()
