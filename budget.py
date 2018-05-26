@@ -20,6 +20,7 @@ class CustomPopup(Popup):
 class ExpenseListButton(ListItemButton):
     pass
 
+
 class Budget(BoxLayout):
 
     allowanceDay = ObjectProperty()
